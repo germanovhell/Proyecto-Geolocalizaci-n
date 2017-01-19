@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Buscador farmacias y bencineras Chile</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/map.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/grid_12.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/slider.css">
+    <link href='http://fonts.googleapis.com/css?family=Condiment' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+    <script src="js/jquery-1.7.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/tms-0.4.x.js"></script>
+    <script>
+		$(document).ready(function(){				   	
+			$('.slider')._TMS({
+				show:0,
+				pauseOnHover:true,
+				prevBu:false,
+				nextBu:false,
+				playBu:false,
+				duration:1000,
+				preset:'fade',
+				pagination:true,
+				pagNums:false,
+				slideshow:7000,
+				numStatus:true,
+				banners:'fromRight',
+				waitBannerAnimation:false,
+				progressBar:false
+			})		
+		});
+	</script>
+    <script type="text/javascript" src="js/extractor_de_coordenadas.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp?key=AIzaSyC8zwNP49FgQm03Ce-bykP8kbbYXgUtAsk&sensor=true"></script>
+    
+	<!--[if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+   		<script type="text/javascript" src="js/html5.js"></script>
+    	<link rel="stylesheet" type="text/css" media="screen" href="css/ie.css">
+	<![endif]-->
+</head>
+<body onload="initialize()">
+  <div class="main">
+  <!--==============================header=================================-->
+    <header>
+        <h1><a href="index.html"><!--img src="images/" alt=""--></a></h1>
+        
+		<input type="hidden" id="direccion_ok" value=0 >
+				<input type="hidden" id="latitud_direccion" name= "latitud">
+				<input type="hidden" id="longitud_direccion" name= "longitud">
+				<input type="hidden" name="es_farmacia" id="es_farmacia_2" value="1">
+		
+		
+		<!--div class="form-search">
+			<form id="form-search">
+			
+				<input type="hidden" id="direccion_ok" value=0 >
+				<input type="hidden" id="latitud_direccion" name= "latitud">
+				<input type="hidden" id="longitud_direccion" name= "longitud">
+				<input type="hidden" name="es_farmacia" id="es_farmacia_2" value="1">
+				<input name="direccion_buscada" id="direccion_buscada" type="text" value="Buscar aqui..." 
+				onBlur="if(this.value=='') this.value='Buscar aqui...';this.style.border='0px solid black'; " 
+				onFocus="if(this.value =='Buscar aqui...' ) this.value='';this.style.border='2px solid black';" />
+                <a onclick="rescatarCoordenadasDireccion()" class="search_button"></a>
+			</form>
+		</div-->   
+        <div class="clear"></div>    
+        <nav class="box-shadow">
+            <div>
+                <ul class="menu">
+                    <li class="home-page current"><a href="index.html"><span></span></a></li>
+                    <li><a href="contacts.html">Contacto</a></li>
+                </ul>
+                <div class="social-icons">
+                    <span>Siguenos:</span>
+                    <a href="#" class="icon-3"></a>
+                    <a href="http://www.facebook.com/" class="icon-2"></a>
+                    <a href="#" class="icon-1"></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </nav>
+    </header>   
+  <!--==============================content================================-->
+    <section id="content">
+        <div id="slide" class="box-shadow">		
+            <div class="slider">
+                <ul class="items">
+                    <li><img src="images/slider1.jpg" alt="" /><div class="banner">Precios bajos + Cerca de usted&nbsp;</div></li>
+                    <li><img src="images/slider2.jpg" alt="" /><div class="banner">Copec, primera en servicio&nbsp;</div></li>
+                    <li><img src="images/slider3.jpg" alt="" /><div class="banner">Farmacias&nbsp;</div></li>
+                     <li><img src="images/slider4.jpg" alt="" /><div class="banner">El petróleo es nuestro&nbsp;</div></li>
+                </ul>
+            </div>	
+        </div>
+        <div class="container_12">
+          <div class="grid_12">
+          <div class="pad-0 border-1">
+                <h2 class="top-1 p0">Busca las estaciones de servicio o farmacias cercanas</h2>
+            </div>
+            <div class="pad-0 border-1">
+            <!--form id="form_ubicacion_actual" action="consultaMongoDb.php" method="get" target="_self"-->
+							<input type="hidden" name="latitud" id="latitud_actual">
+							<input type="hidden" name="longitud" id="longitud_actual">
+							<input type="hidden" name="es_farmacia" id="es_farmacia_1" value="1">
+							<input type="hidden" id="ubicacion_actual_ok" value=0>
+							<a class="button" onclick="buscarEnLocalizacionActual()">Localizarme</a>
+							<a class="button" onclick="rescatarCoordenadasDireccion2()">Localizar otras Direcciones</a>
+							<input name="direccion_buscada2" id="direccion_buscada2" type="text" value="Ingrese dirección aquí....." 
+							style="width:300px; height:30px"
+							onBlur="if(this.value=='') this.value='Ingrese dirección aquí.....'; this.style.border='0px solid black'; " 
+							onFocus="if(this.value =='Ingrese dirección aquí.....') this.value='';this.style.border='2px solid black';" />
+							
+                 <!--/form-->
+				 
+                 </div>
+                 <div class="pad-0 border-1">
+            		<input type="radio" checked="checked" id="radio_farmacia"  name="tipo_de_servicio" value="farmacia" onchange="cambiarSelecionFarmacias()" /> farmacia 
+						<input type="radio" id="radio_bencinera" name="tipo_de_servicio" value="bencinera" onchange="cambiarSelecionFarmacias()"/> bencinera 
+						<input type="range" id="rango" name="rango" value=3 min="1" max="200" style="width:150px; height:15px" onchange="actualizarRango();"> Rango de búsqueda</input>
+						<label><input type="text" id="valor_rango" value=3 style="width:30px; height:30px" readonly="readonly"> Km.</input></label>
+                 </div>  
+                 <div style="height:1000px">
+          			<div id="map_canvas" style="width:100%; height:100%"></div>
+          </div>     
+          </div>
+          <div class="clear"></div>
+          </div>
+          <div class="clear"></div>
+          
+    </section> 
+  </div>    
+<!--==============================footer=================================-->
+    <footer>
+        <p>Base de datos II, 2014 , Profesor Mauro San Martin </p>
+    </footer>	
+    
+<!--============================= datos necesarios ==================-->
+  
+</body>
+</html>
